@@ -1,0 +1,12 @@
+[Unit]
+Description=RS URL Shortener Service
+After=network.target
+
+[Service]
+ExecStart=PathToBinary
+User=User
+Restart=always
+WorkingDirectory=PathToRootDirectory
+
+[Install]
+WantedBy=multi-user.target

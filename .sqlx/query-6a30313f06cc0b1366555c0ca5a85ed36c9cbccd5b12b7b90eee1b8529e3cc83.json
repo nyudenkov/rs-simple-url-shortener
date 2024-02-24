@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT EXISTS(SELECT 1 FROM urls WHERE short_code = ?) AS url_exists",
+  "describe": {
+    "columns": [
+      {
+        "name": "url_exists",
+        "ordinal": 0,
+        "type_info": "Int"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "6a30313f06cc0b1366555c0ca5a85ed36c9cbccd5b12b7b90eee1b8529e3cc83"
+}

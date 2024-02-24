@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT * FROM urls WHERE short_code = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Int64"
+      },
+      {
+        "name": "short_code",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "original_url",
+        "ordinal": 2,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      true,
+      false,
+      false
+    ]
+  },
+  "hash": "b0f12a42ef2aa8b9510ada054a1d7b847217d4febaa7a8097d493dfddbabf251"
+}

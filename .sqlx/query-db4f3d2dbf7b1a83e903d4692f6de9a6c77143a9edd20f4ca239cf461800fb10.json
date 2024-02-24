@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO urls (short_code, original_url) VALUES (?, ?) RETURNING *",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Int64"
+      },
+      {
+        "name": "short_code",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "original_url",
+        "ordinal": 2,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "db4f3d2dbf7b1a83e903d4692f6de9a6c77143a9edd20f4ca239cf461800fb10"
+}
