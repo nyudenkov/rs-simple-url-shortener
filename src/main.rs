@@ -37,7 +37,8 @@ pub async fn main() -> std::io::Result<()> {
                     .wrap(auth_md)
                     .route("/shorten", web::post().to(routes::shorten_url))
                     .route("/urls", web::get().to(routes::list_urls))
-                    .route("/{short_code}", web::delete().to(routes::delete_url)),
+                    .route("/{short_code}", web::delete().to(routes::delete_url))
+                    .route("/{id}", web::put().to(routes::edit_url)),
             )
     })
     .bind(addr)?

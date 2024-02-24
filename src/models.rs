@@ -69,3 +69,23 @@ pub async fn delete_url_by_short_code(pool: &SqlitePool, short_code: &str) -> Re
 
     Ok(())
 }
+
+pub async fn edit_by_id(
+    pool: &SqlitePool,
+    id: i64,
+    short_code: &str,
+    original_url: &str,
+) -> Result<Url, Error> {
+    let mut conn = pool.acquire().await?;
+    let url = sqlx::query_as!(
+        Url,
+        "UPDATE urls SET short_code = ?, original_url = ? WHERE id = ? RETURNING *",
+        short_code,
+        original_url,
+        id
+    )
+    .fetch_one(&mut *conn)
+    .await?;
+
+    Ok(url)
+}

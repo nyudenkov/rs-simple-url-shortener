@@ -2,7 +2,9 @@ use actix_web::{web, HttpResponse, Responder};
 use sqlx::SqlitePool;
 
 use super::errors::UrlError;
-use super::models::{create_url, delete_url_by_short_code, get_all_urls, get_url_by_code, Url};
+use super::models::{
+    create_url, delete_url_by_short_code, edit_by_id, get_all_urls, get_url_by_code, Url,
+};
 
 pub async fn shorten_url(
     pool: web::Data<SqlitePool>,
@@ -44,6 +46,24 @@ pub async fn delete_url(
     let short_code = short_code.into_inner();
     match delete_url_by_short_code(&pool, &short_code).await {
         Ok(_) => HttpResponse::NoContent().finish(),
+        Err(_) => HttpResponse::InternalServerError().into(),
+    }
+}
+
+pub async fn edit_url(
+    pool: web::Data<SqlitePool>,
+    id: web::Path<i64>,
+    web::Json(payload): web::Json<Url>,
+) -> impl Responder {
+    match edit_by_id(
+        &pool,
+        id.into_inner(),
+        &payload.short_code,
+        &payload.original_url,
+    )
+    .await
+    {
+        Ok(url) => HttpResponse::Ok().json(url),
         Err(_) => HttpResponse::InternalServerError().into(),
     }
 }
