@@ -60,3 +60,12 @@ pub async fn get_all_urls(pool: &SqlitePool) -> Result<Vec<Url>, Error> {
 
     Ok(urls)
 }
+
+pub async fn delete_url_by_short_code(pool: &SqlitePool, short_code: &str) -> Result<(), Error> {
+    let mut conn = pool.acquire().await?;
+    sqlx::query!("DELETE FROM urls WHERE short_code = ?", short_code)
+        .execute(&mut *conn)
+        .await?;
+
+    Ok(())
+}
