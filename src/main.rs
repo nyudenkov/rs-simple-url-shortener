@@ -6,6 +6,7 @@ use dotenv::dotenv;
 use sqlx::SqlitePool;
 
 mod auth;
+mod errors;
 mod models;
 mod routes;
 
@@ -25,12 +26,14 @@ pub async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(pool.clone()))
             .wrap(Logger::default())
             .service(
-                web::scope("").route("/{short_code}", web::get().to(routes::redirect_to_original)),
+                web::scope("/public")
+                    .route("/{short_code}", web::get().to(routes::redirect_to_original)),
             )
             .service(
                 web::scope("/secure")
                     .wrap(auth_md)
-                    .route("/shorten", web::post().to(routes::shorten_url)),
+                    .route("/shorten", web::post().to(routes::shorten_url))
+                    .route("/urls", web::get().to(routes::list_urls)),
             )
     })
     .bind("127.0.0.1:8080")?
